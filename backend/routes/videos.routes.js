@@ -13,6 +13,6 @@ router.delete("/:id",verifyToken,deleteVideo);
 router.put("/view/:id",addview);
 router.delete("/trend",);
 router.delete("/random",verifyToken,random);
-router.get("/sub",sub)
+router.get("/sub",verifyToken,sub)
 
 export default router;
