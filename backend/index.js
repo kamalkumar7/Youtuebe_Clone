@@ -6,10 +6,12 @@ import videoRoutes from './routes/videos.routes.js'
 import commentRoutes from './routes/comments.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import bodyParser from 'body-parser'
+import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
 app.use((err, req, res, next) => {
+
     const status = err.status || 500;
     const message = err.message || "Something went wrong!";
     return res.status(status).json({
@@ -23,8 +25,10 @@ app.listen(4000,()=>{
     console.log("listening on Port 4000");
 })
 
+app.use(cookieParser())
 app.use(bodyParser.json())
-app.use('/user',userRoutes);
+app.use("/users", userRoutes);
+
 app.use('/auth',authRoutes);
 app.use('/comments',commentRoutes);
 app.use('/videos',videoRoutes);

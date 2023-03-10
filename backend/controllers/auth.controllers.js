@@ -1,7 +1,7 @@
 import mongoose  from "mongoose";
-import user from "../models/user.js";
+import User from "../models/user.js";
 import bcrypt from 'bcryptjs'
-import { createError } from "../error.js";
+import { createError } from "../Error.js";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config();
@@ -12,7 +12,7 @@ export const signup = async (req, res, next) => {
     try {
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);
-      const newUser = new user({ ...req.body, password: hash });
+      const newUser = new User({ ...req.body, password: hash });
   
       await newUser.save();
       res.status(200).send("User has been created!");
@@ -26,7 +26,7 @@ export const signup = async (req, res, next) => {
   export const login = async (req, res, next) => {
 
     try {
-        const founduser  = await user.findOne({name:req.body.name})
+        const founduser  = await User.findOne({name:req.body.name})
         if(!founduser)
         {
             return next(createError(404, "User not found"));
@@ -35,7 +35,7 @@ export const signup = async (req, res, next) => {
         if ( await bcrypt.compare(req.body.password,founduser.password))
         {
 
-            const token = jwt.sign({id:user._id},process.env.JWTsecret);
+            const token = jwt.sign({id:founduser._id},process.env.JWTsecret);
 
             const {password,...everythingElse} = founduser._doc; 
 
@@ -51,4 +51,7 @@ export const signup = async (req, res, next) => {
     }
   };
 
+export const google= async(req,res,next) =>{
+
+}
 
