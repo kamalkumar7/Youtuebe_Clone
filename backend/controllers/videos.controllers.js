@@ -99,7 +99,7 @@ export const addview = async(req,res,next)=>{
 
 export const random = async(req,res,next)=>{
     try {
-        const foundvideos = await video.aggregate([{$sample:{size:1}}]);
+        const foundvideos = await video.aggregate([{$sample:{size:40}}]);
         res.status(200).json(foundvideos);
     } catch (error) {
         next(error)

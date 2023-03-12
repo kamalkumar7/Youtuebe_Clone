@@ -27,11 +27,10 @@ app.listen(4000,()=>{
 
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.use("/users", userRoutes);
-
-app.use('/auth',authRoutes);
-app.use('/comments',commentRoutes);
-app.use('/videos',videoRoutes);
+app.use("/api/users", userRoutes);
+app.use('/api/auth',authRoutes);
+app.use('/api/comments',commentRoutes);
+app.use('/api/videos',videoRoutes);
 
 mongoose.set('strictQuery', false);
 const connectDB = () => {
